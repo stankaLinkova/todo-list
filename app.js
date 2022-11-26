@@ -4,8 +4,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+require('dotenv').config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+const mongo_user = process.env.MONGO_USERNAME;
+const mongo_psswd = process.env.MONGO_PASSWORD;
 
 app.set('view engine', 'ejs');
 
@@ -13,7 +17,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 //using DB
-mongoose.connect("mongodb+srv://{$username}:{$password}@cluster0.dqozfm5.mongodb.net/todoListDB")
+mongoose.connect("mongodb+srv://" + mongo_user + ":" + mongo_psswd + "@cluster0.dqozfm5.mongodb.net/todoListDB")
 
 const todoItemSchema = new mongoose.Schema({
   name: String
